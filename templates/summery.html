@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    QYTANG DJG TMP
+{% endblock title %}
+
+{% block body %}
+    <div class="container-fluid">
+  <h1>{{ qytsummary }}</h1>
+    {% if mytime is 6 or mytime is 0 %}
+      <p style="color: green"><strong>今天是周末</strong></p>
+      {% elif mytime > 3 %}
+      <p style="color: green"><strong>周三已经过去,周末快到了</strong></p>
+      {% else %}
+      <p style="color: green"><strong>今天不是周末</strong></p>
+    {% endif %}
+
+      <p style="color: red">课程</p>
+      <ul>
+          {% for course in course_list %}
+          <li>{{ course }}</li>
+          {% endfor %}
+      </ul>
+      <p style="color: red">讲师</p>
+      <ul>
+          {% for t in teacher_list %}
+          <li>方向：{{ t.courses }} 讲师{{ t.teacher }}</li>
+          {% endfor %}
+      </ul>
+    </div>
+{% endblock body %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%

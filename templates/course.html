@@ -1,0 +1,25 @@
+{%  extends 'base.html' %}
+
+{% block title %}
+	亁颐堂DJG TMP
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <h1>{{ courseinfo.方向}}</h1>
+    <p style="color: blue">摘要:{{ courseinfo.摘要 }}</p>
+    <p style="color: red">授课老师:{{ courseinfo.授课老师 }}</p>
+    <p style="color: green">授课方式:{{ courseinfo.授课方式 }}</p>
+    {% if courseinfo.课程特色 %}
+    <p style="color: darkmagenta">课程特色:{{ courseinfo.课程特色 }}</p>
+    {% endif %}
+    <p style="color: darkslategray">是否提供实验环境:{{ courseinfo.是否提供实验环境 }}</p>
+    <ol>
+    {% for x in courseinfo.具体课程 %}
+        <li>{{ x }}</li>
+    {% endfor %}
+    </ol>
+    {# test #}
+
+</div>
+{% endblock %}
