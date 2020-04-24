@@ -20,7 +20,7 @@ from views import index, qyt_template
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index.qyt_index),
-    path('summary', qyt_template.qyt_summery),
+    path('summary', qyt_template.qyt_summary),
     path('sec', qyt_template.qyt_sec),
     path('dc', qyt_template.qyt_dc)
 ]

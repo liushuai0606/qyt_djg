@@ -17,14 +17,14 @@
 
       <p style="color: red">课程</p>
       <ul>
-          {% for course in course_list %}
-          <li>{{ course }}</li>
+          {% for course in courses_list %}
+              <li>{{ course }}</li>
           {% endfor %}
       </ul>
       <p style="color: red">讲师</p>
       <ul>
           {% for t in teacher_list %}
-          <li>方向：{{ t.courses }} 讲师{{ t.teacher }}</li>
+              <li>方向：{{ t.courses }} 讲师{{ t.teacher }}</li>
           {% endfor %}
       </ul>
     </div>
