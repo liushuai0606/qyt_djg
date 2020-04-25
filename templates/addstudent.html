@@ -1,0 +1,45 @@
+
+{% extends 'base.html' %}
+
+{% block head %}
+{#  为了在Form中添加必选项的星，需要添加的css #}
+<style type="text/css">
+    label.required::before {
+        content: "*";
+        color: red;
+    }
+</style>
+{% endblock head %}
+{% block title %}
+乾颐堂添加学员信息
+{% endblock title %}
+
+{% block body %}
+    <div class="container">
+         <br><h2 style="color: #666666">添加学员信息</h2><br>
+        <form action="" method="post">
+                {# CSRF跨站请求伪造 #}
+                {# 添加CSRF防护的隐含参数Token，这是必须配置内容，并不是可选，注意使用render来渲染页面 #}
+                {# <input type="hidden" name="csrfmiddlewaretoken" value="BuPkZVju5knm/wRp5ZZZZZ #}
+                {% csrf_token %}
+
+                {% for field in form %}
+                    <div class=form.group>
+                        {# 手动渲染表单参数文档 #}
+                        {# https://docs.djangoproject.com/en/dev/topics/forms/#rendering.fields-manually #}
+                        {# 如果出现Form错误（各种校验错误），在Form展示给客户看 #}
+                        {% if field.errors %}
+                        {# 调整了bootstrap的显示样式 https://getbootstrap.com/docs/4.1/components/alerts/ #}
+                        <div class="alert alert-danger" role="alert">{{ field.errors }}</div>
+                        {% endif %}
+                        {# 显示字段的label(名字） #}
+                        {{ field.label_tag }}
+                        {# 显示输入与选择字段 #}
+                        {{ field }}
+                    </div>
+             {% endfor %}
+             {# 调整bootstrap的显示样式 https://netbootstrap.com/docs4/1/components/buttons/#button-tags #}
+                <input class="btn btn-primary btn-lg" type='submit' value='提交'>
+         </form>
+     </div>
+{% endblock body %}

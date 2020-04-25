@@ -15,12 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from views import index, qyt_template
+from views import index, qyt_template, qyt_forms
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index.qyt_index),
     path('summary', qyt_template.qyt_summary),
     path('sec', qyt_template.qyt_sec),
-    path('dc', qyt_template.qyt_dc)
+    path('dc', qyt_template.qyt_dc),
+    path('addstudent', qyt_forms.addstudent),
+    # path('showstudents/', qyt_forms.showstudents),
 ]
