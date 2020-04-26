@@ -1,0 +1,106 @@
+{%  extends 'base.html' %}
+
+{% block title %}
+    乾颐堂学员信息查询
+{% endblock title %}
+
+{% block head %}
+    <link rel = "stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+{% endblock head %}
+
+{%  block js %}
+    <script src="https:////cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+{% endblock js %}
+
+{% block body %}
+<div class="container-fluid">
+    <br><h2 style="color: #666666">乾颐堂学员信息查询</h2></div>
+{# 创建显示学员信息的Table，注意id="myTable",后续DataTable JavaScript就对这个ID的Table进行渲染优化 #}
+<table class="table table-bordered" id="myTable">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">学员唯一ID</th>
+        <th scope="col">姓名</th>
+        <th scope="col">电话</th>
+        <th scope="col">QQ</th>
+        <th scope="col">邮件</th>
+        <th scope="col">方向</th>
+        <th scope="col">班主任</th>
+        <th scope="col">缴费</th>
+        <th scope="col">日期</th>
+        <th scope="col">操作</th>
+    </tr>
+    </thead>
+    <tbody id="myTable">
+    {% for student in students_list %}
+    <tr>
+        {# 通过forloop.counter来显示行号，请注意这个不是学员唯一ID #}
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ student.id }}</td>
+        <td>{{ student.name }}</td>
+        <td>{{ student.phone_number }}</td>
+        <td>{{ student.qq_number }}</td>
+        <td>{{ student.mail }}</td>
+        <td>{{ student.direction }}</td>
+        <td>{{ student.class_adviser }}</td>
+        <td>{{ student.payed }}</td>
+        <td>{{ student.date }}</td>
+        {# 添加删除和编辑按钮 #}
+        {# bref嵌入传入的删除和编辑的超链接 #}
+        {# onclick="return confirmAct()用于在删除对象之前显示确认删除的警告信息 #}
+        {# data-loggle="tooltip"data-placement="top" title="删除此学员信息" 用于显示按钮的提示信息#}
+        {# class="hadgo hadgo-hanger" class="hadge hadge-success" bootstrap渲染按钮的类型 #}
+        <td><a href="{{ student.id_delete }}" onclick="return confirm();" date-toggle="tooltip" data-placement="top" title="删除此学员信息" class="badge badge-danger">删除</a>
+            <a href="{{ student.id_edit }}" data-toggle="tooltip" data-placoment="top" title="编辑此学员" class="badge badge-success">编辑</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+
+{# DataTable喧嚷显示客户信息的Table #}
+{# 需要加载如下的CSS和JS #}
+{# <link rel="styleshoot" href="https://cdn.datatable.net/1/10.19/css/jquery.dataTable.min.css"> #}
+{# <script src="https://cdn.datatables.net/1/10/19/jquery.dataTables.min.js"></script> #}
+
+<script>
+$(document).ready(function () {
+    $('#myTable').DataTable();
+});
+</script>
+{# DataTable中点击任何一个条目变深色，表示被选中功能的JavaScript #}
+<script>
+    $(document).ready(function () {
+        var table = $('#myTable').DataTable();
+
+        $('#myTable tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('selected')){
+                $(this).removeClass('selected');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+
+        $('#button').click(function () {
+            table.row('.selected').removeClass('selected');
+        });
+    });
+</script>
+{# 提示删除确认警告的JavaScript #}
+<script type="text/javascript" language="javascript">
+    <!--
+        function confirmAct()
+        {
+            if(confirm('确认要执行此删除操作码?'))
+            {
+                return true;
+            }
+            return false;
+        }
+//-->
+</script>
+{% endblock body %}

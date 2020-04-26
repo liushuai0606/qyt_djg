@@ -44,9 +44,9 @@ class StudentsForm(forms.Form):
     qq_regex = RegexValidator(regex=r'^\d{5,20}$',
                               message="QQ号码需要使用5到20位数字，例如:'605658506'")
     qq_number = forms.CharField(validators=[qq_regex],
-                                min_length=11,
-                                max_length=11,
-                                label='手机号码',
+                                min_length=5,
+                                max_length=20,
+                                label='QQ号码',
                                 required=True,
                                 widget=forms.NumberInput(attrs={"class": "form-control"}))
     mail = forms.EmailField(required=False,
