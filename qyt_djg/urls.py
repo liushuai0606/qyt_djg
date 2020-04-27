@@ -25,4 +25,6 @@ urlpatterns = [
     path('dc', qyt_template.qyt_dc),
     path('addstudent', qyt_forms.addstudent),
     path('showstudents/', qyt_forms.showstudents),
+    path('deletestudent/<int:id>', qyt_forms.deletestudent),
+    path('editstudent/<int:id>', qyt_forms.editstudent),
 ]

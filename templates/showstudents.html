@@ -15,6 +15,19 @@
 {% block body %}
 <div class="container-fluid">
     <br><h2 style="color: #666666">乾颐堂学员信息查询</h2></div>
+
+        {% if successmessage %}
+            <span class="message"><div class="alert alert-success" role="alert">{{ successmessage }}</div> </span>
+        {% endif %}
+
+        {% if warningmessage %}
+            <span class="message"><div class="alert alert-warning " role="alert">{{ warningmessage }}</div> </span>
+        {% endif %}
+
+        {% if errormessage %}
+            <span class="message"><div class="alert alert-danger" role="alert">{{ errormessage }}</div> </span>
+        {% endif %}
+
 {# 创建显示学员信息的Table，注意id="myTable",后续DataTable JavaScript就对这个ID的Table进行渲染优化 #}
 <table class="table table-bordered" id="myTable">
     <thead class="thead-dark">
@@ -51,7 +64,7 @@
         {# onclick="return confirmAct()用于在删除对象之前显示确认删除的警告信息 #}
         {# data-loggle="tooltip"data-placement="top" title="删除此学员信息" 用于显示按钮的提示信息#}
         {# class="hadgo hadgo-hanger" class="hadge hadge-success" bootstrap渲染按钮的类型 #}
-        <td><a href="{{ student.id_delete }}" onclick="return confirm();" date-toggle="tooltip" data-placement="top" title="删除此学员信息" class="badge badge-danger">删除</a>
+        <td><a href="{{ student.id_delete }}" onclick="return confirmAct();" date-toggle="tooltip" data-placement="top" title="删除此学员信息" class="badge badge-danger">删除</a>
             <a href="{{ student.id_edit }}" data-toggle="tooltip" data-placoment="top" title="编辑此学员" class="badge badge-success">编辑</a>
         </td>
     </tr>

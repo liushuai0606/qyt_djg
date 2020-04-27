@@ -90,3 +90,75 @@ class StudentsForm(forms.Form):
         if existing:
             raise forms.ValidationError("QQ号码已经存在")
         return qq_number
+
+class EditStudents(forms.Form):
+    required_css_class = 'required'
+    # 会给编辑账号人员显示客户唯一ID（数据库的唯一ID)，但是这个ID为制度'readonly'：True
+    id = forms.CharField(label='学员唯一ID',
+                         widget=forms.TextInput(attrs={"class": "form-control", 'readonly': True}))
+    name = forms.CharField(max_length=50,
+                           min_length=2,
+                           label='学员姓名',
+                           required=True,
+                           widget=forms.TextInput(attrs={"class": "form-control"}))
+    phone_regex = RegexValidator(regex=r'^1\d{10}$',
+                                 message="手机号码需要使用11位数字，例如：“13911153335”")
+    phone_number = forms.CharField(validators=[phone_regex],
+                                   min_length=11,
+                                   max_length=11,
+                                   label="手机号码",
+                                   required=True,
+                                   widget=forms.NumberInput(attrs={"class": "form-control"}))
+    qq_regex = RegexValidator(regex=r'^\d{5,20}$',
+                              message="QQ号码需要使用5到20位数字，例如：“0605658506”")
+    qq_number = forms.CharField(validators=[qq_regex],
+                                min_length=5,
+                                max_length=20,
+                                label='QQ号码',
+                                required=True,
+                                widget=forms.NumberInput(attrs={"class": "form-control"}))
+    mail = forms.EmailField(required=False,
+                            label='Email地址',
+                            error_messages={'invalid': '请输入正确格式的电子邮件地址'},
+                            widget=forms.EmailInput(attrs={"class": "form-control"}))
+    direction_choices = (('安全', '安全'), ('教主VIP', '教主VIP'))
+    direction = forms.CharField(max_length=10,
+                                label='学习方向',
+                                widget=forms.Select(choices=direction_choices,
+                                                    attrs={"class": "form-control"}))
+    class_adviser_choices = (('小雪', '小雪'), ('菲儿', '菲儿'))
+    class_adviser = forms.CharField(max_length=10,
+                                    label='班主任',
+                                    widget=forms.Select(choices=class_adviser_choices,
+                                                        attrs={"class": "form-control"}))
+    payed_choices = (('已缴费', '已缴费'), ('未交费', '未交费'))
+    payed = forms.CharField(max_length=10,
+                            label='缴费情况',
+                            widget=forms.Select(choices=payed_choices,
+                                                attrs={"class": "form-control"}))
+
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data['phone_number']
+        # 在编辑的时候，校验电话号码与创建不通，因为其实数据库里边已经有一个自己这个条目的电话号码了！
+        # 所以要排除自己ID禅道的电话号码，如果其他ID已让存在形同的电话号码，就校验失败
+        count = 0
+        for i in StudentsDB.objects.filter(phone_number=phone_number):
+            if int(i.id) != int(self.cleaned_data['id']):
+                count += 1
+
+        if count >= 1:
+            raise forms.ValidationError("电话号码已经存在")
+        # 如果校验成功就返回电话号码
+        return phone_number
+
+    def clean_qq_number(self):
+        qq_number = self.cleaned_data['qq_number']
+
+        count = 0
+        for i in StudentsDB.objects.filter(qq_number=qq_number):
+            if int(i.id) != int(self.cleaned_data['id']):
+                count += 1
+
+        if count >=1:
+            raise forms.ValidationError("QQ号码已经存在")
+        return qq_number
