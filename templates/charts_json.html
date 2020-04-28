@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    乾颐堂图表测试
+{% endblock title %}
+
+{% block js %}
+    <!-- 加载Chart.js的JS文件 -->
+    <!-- 最新的Chart JS 文件 https://cdnjs.com/libraries/Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- 加载本项目创建的chart_jsoon_functions.js的JS文件 -->
+    {% load static %}
+    <script src="{% static "js/chart_json_functions.js" %}"></script>
+{% endblock js %}
+
+{%  block body %}
+    <div class="container-fluid">
+    <div class="jumbotron">
+        <h1 style="color:  #666666">乾颐堂图表测试</h1>
+        <p>乾颐堂现任明教教主Python网络编程第二部分HTTP协议图表测试</p>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-6">
+
+            <div class="card">
+
+                <div class="card-header">线性图表测试（JSON刷新按钮）
+
+                </div>
+                <div class="card-body">
+                    <!-- 图表会被回执在下面的canvas内 -->
+                    <canvas id="chart1"></canvas>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header">柱状图表测试（JSON刷新数据）</div>
+                <div class="card-body">
+                    <!-- 图表会被绘制在下面的canvas内 -->
+                    <canvas id="chart2"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{#<script type="text/javascript" language="javascript">#}
+{#    <!-- 下面的任务是提供一个初始化的图表展示，如果没有这个部分，默认图表内容为空白 -->#}
+{#    chart_line("chart1",#}
+{#               "CPU利用率",#}
+{#               ['2018-8-1','2018-8-2', '2018-8-3', '2018-8-4', '2018-8-5', '2018-8-6'],#}
+{#               [98,78,10,2,6,9],#}
+{#               ['#007bff','#28a745','#333333','#c3e6cb','#dc3545','#6c757d']);#}
+{#    chart_line("chart2",#}
+{#               "MEM利用率",#}
+{#               ['2018-8-1','2018-8-2','2018-8-3','2018-8-4','2018-8-5','2018-8-6'],#}
+{#               [98,78,10,2,6,9],#}
+{#               ['#007bff','#28a745','#333333','#c3e6cb','#dc3545','#6c757d']);#}
+{#</script>#}
+
+        <script type="text/javascript" language="javascript">
+            get_json_render_chart('/chartjson/line/1/', "chart1", "line", "CPU利用率");
+            get_json_render_chart('/chartjson/bar/2/', "chart2", "bar", "MEM利用率");
+        </script>
+
+
+
+    <div class="row py-2">
+        <div class="col-md-4 py-1">
+            <div class="card">
+                <div class="card-header">饼状图表测试1</div>
+                <div class="card-body">
+                    <canvas id="chDonut1" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 py-1">
+            <div class="card">
+                <div class="card-header">饼状图测试2</div>
+                <div class="card-body">
+                    <canvas id="chDonut2" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 py-1">
+            <div class="card">
+                <div class="card-header">饼状图表测试3</div>
+                <div class="card-body">
+                    <canvas id="chDonut3" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{#<script type="text/javascript" language="javascript">#}
+{#    // 通过URL获取JSON数据，并且喧嚷饼状图#}
+{#    chart_pie("chDonut1",#}
+{#              ['路由交换', '安全','数据中心','教主VIP', '无线','华为'],#}
+{#              [10,82,50,16,70,33],#}
+{#              ['#007bff', '#28a745', '#333333', '#c3e6cb', '#dc3545', '#6c757d']);#}
+{#    chart_pie("chDonut2",#}
+{#              ['路由交换', '安全','数据中心','教主VIP', '无线','华为'],#}
+{#              [10,82,50,16,70,33],#}
+{#              ['#007bff', '#28a745', '#333333', '#c3e6cb', '#dc3545', '#6c757d']);#}
+{#    chart_pie("chDonut3",#}
+{#              ['路由交换', '安全','数据中心','教主VIP', '无线','华为'],#}
+{#              [10,82,50,16,70,33],#}
+{#              ['#007bff', '#28a745', '#333333', '#c3e6cb', '#dc3545', '#6c757d']);#}
+{#</script>#}
+
+    <script type="text/javascript" language="javascript">
+        get_json_render_chart('/chartjson/pie/3/', "chDonut1", "pie");
+        get_json_render_chart('/chartjson/pie/4/', "chDonut2", "pie");
+        get_json_render_chart('/chartjson/pie/5/', "chDonut3", "pie");
+    </script>
+
+
+
+    </div>
+{% endblock body %}

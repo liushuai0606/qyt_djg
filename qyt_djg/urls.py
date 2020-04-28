@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from views import index, qyt_template, qyt_forms
+from views import index, qyt_template, qyt_forms, qyt_charts, qyt_ajax
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +27,7 @@ urlpatterns = [
     path('showstudents/', qyt_forms.showstudents),
     path('deletestudent/<int:id>', qyt_forms.deletestudent),
     path('editstudent/<int:id>', qyt_forms.editstudent),
+    path('chartsjson', qyt_charts.chartsjson),
+    path('chartjson/<str:chart_type>/<int:deviceid>/', qyt_ajax.chart_json),
+
 ]
