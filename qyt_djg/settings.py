@@ -25,7 +25,7 @@ SECRET_KEY = 'zz4#4_o8qtq!n4us$zl-gnu@lcbnc4j7#e27o&ona5xv7l_q56'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.110']
+ALLOWED_HOSTS = ['192.168.1.110', 'www.qytang.com']
 
 
 # Application definition

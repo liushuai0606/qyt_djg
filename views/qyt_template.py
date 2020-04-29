@@ -2,6 +2,7 @@ from django.shortcuts import render
 from datetime import datetime
 from qyt_db.models import Courses, CoursesList
 import json
+from django.contrib.auth.decorators import login_required
 
 
 def qyt_summary(request):
@@ -16,6 +17,7 @@ def qyt_summary(request):
     return render(request, 'summary.html', locals())
 
 
+@login_required()
 def qyt_sec(request):
     c_info = Courses.objects.get(courses_name='安全')
     sec = {'方向': c_info.courses_name,
@@ -28,6 +30,7 @@ def qyt_sec(request):
     return render(request, 'course.html', {'courseinfo': sec, 'datetime': datetime.now()})
 
 
+@login_required()
 def qyt_dc(request):
     c_info = Courses.objects.get(courses_name='数据中心')
     dc = {'方向': c_info.courses_name,

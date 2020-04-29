@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from views import index, qyt_template, qyt_forms, qyt_charts, qyt_ajax
+from views import qyt_login
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,5 +31,11 @@ urlpatterns = [
     path('editstudent/<int:id>', qyt_forms.editstudent),
     path('chartsjson', qyt_charts.chartsjson),
     path('chartjson/<str:chart_type>/<int:deviceid>/', qyt_ajax.chart_json),
+    # 登录页面
+    path('accounts/login/', qyt_login.qyt_login),
+    # 注销页面
+    path('accounts/logout/', qyt_login.qyt_logout),
+
+
 
 ]

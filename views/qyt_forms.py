@@ -5,7 +5,10 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from qyt_db.forms import StudentsForm, EditStudents
 from pprint import pprint
+from django.contrib.auth.decorators import permission_required
 
+
+@permission_required('qyt_db.add_studentsdb')
 def addstudent(request):
     if request.method == 'POST':
         # pass
@@ -32,6 +35,7 @@ def addstudent(request):
         return render(request, 'addstudent.html', {'form': form})
 
 
+@permission_required('qyt_db.view_studentsdb')
 def showstudents(request):
     # 查询整个数据库的信息，object.all()
     result = StudentsDB.objects.all()
@@ -60,6 +64,7 @@ def showstudents(request):
     return render(request, 'showstudents.html', {'students_list': students_list})
 
 
+@permission_required('qyt_db.delete_studentsdb')
 def deletestudent(request, id):
     # 获取对应ID的学员
     try:
@@ -135,6 +140,8 @@ def getstudentinfo(id):
     # 返回特定学员详细信息
     return students_dict
 
+
+@permission_required('qyt_db.change_studentsdb')
 def editstudent(request, id):
     # 首先获取特定ID学员详细信息
     infodict = getstudentinfo(id)
