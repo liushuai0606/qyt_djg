@@ -5,6 +5,7 @@ from qyt_db.forms import UserForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 
+
 def qyt_login(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
@@ -25,6 +26,7 @@ def qyt_login(request):
         else:
             form = UserForm()
             return render(request, 'registration/login.html', {'form': form})
+
 
 def qyt_logout(request):
     logout(request)
